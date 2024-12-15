@@ -3,3 +3,4 @@
 !.gitignore
 !config.php
 !db.php
+!insert.php

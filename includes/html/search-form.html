@@ -1,8 +1,16 @@
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-  <fieldset>
-    <legend>Search</legend>
-    <input type="text" name="search" autofocus required>
-    <input type="hidden" name="submitted" value="1">
-    <p><input type="submit" value="search"></p>
-  </fieldset>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Accounts</title>
+</head>
+<body>
+    <h1>Search Accounts</h1>
+    <form action="../php/search.php" method="POST">
+        <label for="account_name">Account Name:</label>
+        <input type="text" id="account_name" name="account_name" placeholder="Enter account name" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>

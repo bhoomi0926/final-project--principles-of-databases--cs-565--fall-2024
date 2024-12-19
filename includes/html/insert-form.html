@@ -1,54 +1,43 @@
-<form action="insert.php" method="POST">
-    <fieldset>
-      <legend>Insert Entry</legend>
-      <div style="display: flex; flex-wrap: wrap; gap: 20px;"> 
-  
-        <!-- Site Name (1st row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Site Name: <input type="text" name="site_name" required></label>
-        </div>
-  
-        <!-- Site URL (1st row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Site URL: <input type="text" name="site_url"></label>
-        </div>
-  
-        <!-- First Name (2nd row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>First Name: <input type="text" name="first_name"></label>
-        </div>
-  
-        <!-- Last Name (2nd row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Last Name: <input type="text" name="last_name"></label>
-        </div>
-  
-        <!-- Username (3rd row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Username: <input type="text" name="username"></label>
-        </div>
-  
-        <!-- Email (3rd row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Email: <input type="email" name="email"></label>
-        </div>
-  
-        <!-- Password and Comment (4th row) -->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Password: <input type="password" name="password" required></label>
-        </div>
-  
-        <!-- Comment-->
-        <div style="flex: 1 1 45%; min-width: 200px;">
-          <label>Comment: <textarea name="comment" style="width: 100%;"></textarea></label>
-        </div>
-  
-        <!--Button (5th row) -->
-        <div style="width: 100%; margin-top: 20px;">
-          <p><input type="submit" value="Insert"></p>
-        </div>
-  
-      </div>
-    </fieldset>
-  </form>
-  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Account</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <h1>Insert New Account</h1>
+    <form action="../php/insert.php" method="POST">
+        <fieldset>
+            <legend>Insert Entry</legend>
+
+            <label for="site_name">Site Name:</label>
+            <input type="text" id="site_name" name="site_name" required><br><br>
+
+            <label for="site_url">Site URL:</label>
+            <input type="text" id="site_url" name="site_url"><br><br>
+
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name"><br><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name"><br><br>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment"></textarea><br><br>
+
+            <button type="submit">Insert</button>
+        </fieldset>
+    </form>
+</body>
+</html>

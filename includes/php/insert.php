@@ -1,41 +1,36 @@
 <?php
-// Include the database connection file
-require_once 'db.php';
+require_once 'db.php';  // Ensure db.php is included
+
+// Check if form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get form data
+    $site_name = $_POST['site_name'];
+    $site_url = $_POST['site_url'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $comment = $_POST['comment'];
+
+    // Call the function to insert the account
+    $result = insertAccount($site_name, $site_url, $first_name, $last_name, $username, $email, $password, $comment);
+
+    if ($result) {
+        echo "Account successfully added!";
+    }
+}
 ?>
-
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <fieldset>
-        <legend>Insert Account</legend>
-
-        <label for="app_name">Application Name:</label>
-        <input type="text" name="app_name" id="app_name" placeholder="Application Name" required><br><br>
-
-        <label for="url">URL:</label>
-        <input type="text" name="url" id="url" placeholder="URL"><br><br>
-
-        <label for="username">Select Username:</label>
-        <select name="username" id="username" required>
-            <option value="" disabled selected>Select Username</option>
-            <?php
-            // Fetch usernames and populate the dropdown
-            $rows = getUsernames();
-            if (!empty($rows)) {
-                foreach ($rows as $row) {
-                    echo '<option value="' . htmlspecialchars($row["username"]) . '">' . htmlspecialchars($row["username"]) . '</option>';
-                }
-            } else {
-                echo '<option value="" disabled>No usernames available</option>';
-            }
-            ?>
-        </select><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="Password" required><br><br>
-
-        <label for="comment">Comment:</label>
-        <textarea name="comment" id="comment" placeholder="Comment"></textarea><br><br>
-
-        <input type="hidden" name="submitted" value="5">
-        <p><input type="submit" value="Insert Account"></p>
-    </fieldset>
+<!-- Your HTML form for collecting data -->
+<form method="POST" action="insert.php">
+    <!-- Form fields for site name, URL, user details, etc. -->
+    <input type="text" name="site_name" placeholder="Site Name" required>
+    <input type="text" name="site_url" placeholder="Site URL" required>
+    <input type="text" name="first_name" placeholder="First Name" required>
+    <input type="text" name="last_name" placeholder="Last Name" required>
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <textarea name="comment" placeholder="Comment"></textarea>
+    <button type="submit">Submit</button>
 </form>

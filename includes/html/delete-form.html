@@ -1,13 +1,61 @@
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-  <fieldset>
-    <legend>Delete</legend>
-    DELETE FROM artist WHERE
-    <select name="current-attribute" id="current-attribute">
-      <option>artist_id</option>
-      <option>artist_name</option>
-    </select>
-    = <input type="text" name="pattern" required>
-      <input type="hidden" name="submitted" value="4">
-    <p><input type="submit" value="delete"></p>
-  </fieldset>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        fieldset {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: auto;
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        input[type="submit"]:hover {
+            background-color: #E5533D;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="POST" action="../php/delete.php"> <!-- Correct relative path -->
+            <fieldset>
+                <legend>Delete Account</legend>
+                <label for="id">Account ID:</label>
+                <input type="number" name="id" id="id" required>
+                <input type="submit" value="Delete">
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

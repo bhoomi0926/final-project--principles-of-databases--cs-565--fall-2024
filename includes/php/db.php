@@ -1,5 +1,5 @@
 <?php
-// db.php - Contains database connection and account insertion function
+// db.php - Contains database connection and account insertion/update functions
 
 // Assuming you have set up a PDO connection
 $dsn = 'mysql:host=localhost;dbname=passwords';
@@ -7,6 +7,7 @@ $username = 'passwords_user';
 $password = 'k(D2Whiue9d8yD';
 
 try {
+    // Create a PDO instance
     $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
@@ -62,6 +63,48 @@ function insertAccount($site_name, $site_url, $first_name, $last_name, $username
         // Rollback transaction on error
         $pdo->rollBack();
         echo "Failed to insert account: " . $e->getMessage();
+        return false;
+    }
+}
+
+// Update account function
+function updateAccount($account_id, $site_name, $site_url, $first_name, $last_name, $username, $email, $password, $comment) {
+    global $pdo;
+
+    // Encrypt the password
+    $encryption_key = 'encryption_key'; // Change this to a secure key
+    $iv = substr(hash('sha256', $encryption_key), 0, 16); // Initialization vector
+    $encrypted_password = openssl_encrypt($password, 'aes-128-cbc', $encryption_key, 0, $iv);
+
+    try {
+        // Begin transaction
+        $pdo->beginTransaction();
+
+        // Update account details
+        $sql = "UPDATE accounts SET name = ?, url = ?, comment = ? WHERE account_id = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$site_name, $site_url, $comment, $account_id]);
+
+        // Update user details
+        $sql = "UPDATE users SET first_name = ?, last_name = ?, username = ? WHERE email = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$first_name, $last_name, $username, $email]);
+
+        // Update password for the correct user and account combination
+        $sql = "UPDATE passwords p 
+                JOIN users u ON u.user_id = p.user_id
+                SET p.password = ? 
+                WHERE p.account_id = ? AND u.email = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$encrypted_password, $account_id, $email]);
+
+        // Commit transaction
+        $pdo->commit();
+        return true;
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $pdo->rollBack();
+        echo "Failed to update account: " . $e->getMessage();
         return false;
     }
 }
